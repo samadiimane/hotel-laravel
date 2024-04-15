@@ -22,15 +22,38 @@
 			<a href="javascript:;" class="has-arrow">
 				<div class="parent-icon"><i class="bx bx-category"></i>
 				</div>
-				<div class="menu-title">Application</div>
+				<div class="menu-title">Manage Teams</div>
 			</a>
 			<ul>
-				<li> <a href="app-emailbox.html"><i class='bx bx-radio-circle'></i>Email</a>
+				<li> <a href="{{ route('all.team') }}"><i class='bx bx-radio-circle'></i>All Team</a>
 				</li>
-				<li> <a href="app-chat-box.html"><i class='bx bx-radio-circle'></i>Chat Box</a>
+				<li> <a href="{{ route('add.team') }}"><i class='bx bx-radio-circle'></i>Add Team</a>
 				</li>
 			</ul>
 		</li>
+		<li>
+			<a href="javascript:;" class="has-arrow">
+				<div class="parent-icon"><i class="bx bx-category"></i>
+				</div>
+				<div class="menu-title">Manage Book Area</div>
+			</a>
+			<ul>
+				<li> <a href="{{ route('book.area') }}"><i class='bx bx-radio-circle'></i>Update BookArea</a>
+				</li>
+			</ul>
+		</li>
+		<li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class="bx bx-category"></i>
+                </div>
+                <div class="menu-title">Manage Room Type </div>
+            </a>
+            <ul>
+                <li> <a href="{{ route('room.type.list') }}"><i class='bx bx-radio-circle'></i>Room Type List </a>
+                </li> 
+
+            </ul>
+        </li>
 		<li class="menu-label">UI Elements</li>
 		<li>
 			<a href="javascript:;" class="has-arrow">

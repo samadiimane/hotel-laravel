@@ -57,17 +57,17 @@
 											<div class="col-12">
 												<label for="login" class="form-label">Email/Name/Phone</label>
 												<input type="text" class="form-control @error('login') is-invalid @enderror" id="login" name="login" placeholder="jhon@example.com">
-                                                @error('login')
-                                                 <span class="text-danger"> {{ $message }} </span>
-                                                @enderror
 											</div>
 											<div class="col-12">
 												<label for="password" class="form-label">Password</label>
 												<div class="input-group" id="show_hide_password">
-													<input type="password" class="form-control border-end-0" id="password"  name="password" placeholder="Enter Password"> 
+													<input type="password" class="form-control @error('login') is-invalid @enderror" id="password"  name="password" placeholder="Enter Password"> 
                                                     <a href="javascript:;" class="input-group-text bg-transparent"><i class="bx bx-hide"></i></a>
 												</div>
 											</div>
+											@error('login')
+                                                 <span class="text-danger"> {{ $message }} </span>
+                                            @enderror
 											<div class="col-md-6">
 												<div class="form-check form-switch">
 													<input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked">

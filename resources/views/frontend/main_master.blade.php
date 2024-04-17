@@ -33,7 +33,7 @@
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/theme-dark.css') }}">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="{{ asset('frontend/assets/img/favicon.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('frontend/assets/img/logo-icon.png') }}">
 
     <!-- toastr CSS -->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">

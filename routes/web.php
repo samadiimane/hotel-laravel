@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Backend\TeamController;
 use App\Http\Controllers\Backend\RoomTypeController;
+use App\Http\Controllers\Frontend\BookingController;
 use App\Http\Controllers\Frontend\FrontendRoomController;
 use Illuminate\Support\Facades\Route;
 
@@ -112,3 +113,17 @@ Route::controller(RoomController::class)->group(function(){
 
 
 });
+
+// Auth Middleware User must have login for access this route 
+Route::middleware(['auth'])->group(function(){
+
+    /// CHECKOUT ALL Route 
+Route::controller(BookingController::class)->group(function(){
+
+   Route::get('/checkout/', 'Checkout')->name('checkout');
+   Route::post('/booking/store/', 'BookingStore')->name('user_booking_store');
+   Route::post('/checkout/store/', 'CheckoutStore')->name('checkout.store');
+
+});
+
+}); // End Group Auth Middleware

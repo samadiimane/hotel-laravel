@@ -8,6 +8,7 @@ use App\Http\Controllers\Backend\TeamController;
 use App\Http\Controllers\Backend\RoomTypeController;
 use App\Http\Controllers\Frontend\BookingController;
 use App\Http\Controllers\Frontend\FrontendRoomController;
+use App\Http\Controllers\Backend\RoomListController;
 use Illuminate\Support\Facades\Route;
 
 //-------------------------------------------------------------------//
@@ -21,7 +22,9 @@ Route::get('/', [UserController::class, 'Index'])->name('index');
 
 Route::middleware('auth', 'roles:user')->group(function () {
 
-    Route::get('/dashboard', function () {return view('frontend.dashboard.user_dashboard');})->name('dashboard');
+    Route::get('/dashboard', function () {
+        return view('frontend.dashboard.user_dashboard');
+    })->name('dashboard');
     Route::get('/profile', [UserController::class, 'UserProfile'])->name('user.profile');
     Route::post('/profile/store', [UserController::class, 'UserStore'])->name('profile.store');
     Route::get('/user/logout', [UserController::class, 'UserLogout'])->name('user.logout');
@@ -63,33 +66,50 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
         Route::post('/team/update', 'UpdateTeam')->name('team.update');
         Route::get('/delete/team/{id}', 'DeleteTeam')->name('delete.team');
     });
+
+    /// Admin Booking All Route 
+    Route::controller(BookingController::class)->group(function () {
+
+        Route::get('/booking/list', 'BookingList')->name('booking.list');
+        Route::get('/edit_booking/{id}', 'EditBooking')->name('edit_booking');
+        // booking Update 
+        Route::post('/update/booking/status/{id}', 'UpdateBookingStatus')->name('update.booking.status');
+        Route::post('/update/booking/{id}', 'UpdateBooking')->name('update.booking');
+        // Assign Room Route 
+        Route::get('/assign_room/{booking_id}', 'AssignRoom')->name('assign_room');
+        Route::get('/assign_room/store/{booking_id}/{room_number_id}', 'AssignRoomStore')->name('assign_room_store');
+        Route::get('/assign_room_delete/{id}', 'AssignRoomDelete')->name('assign_room_delete');
+    });
+
+    /// Admin Room List All Route 
+    Route::controller(RoomListController::class)->group(function () {
+
+        Route::get('/view/room/list', 'ViewRoomList')->name('view.room.list');
+    });
 }); // End Admin Group Middleware 
 
 
 //-------------------------------Book Area------------------------------------//
 
- /// Book Area All Route 
- Route::controller(TeamController::class)->group(function(){
+/// Book Area All Route 
+Route::controller(TeamController::class)->group(function () {
 
     Route::get('/book/area', 'BookArea')->name('book.area');
     Route::post('/book/area/update', 'BookAreaUpdate')->name('book.area.update');
-
-
 });
 
 //-------------------------------Room Type------------------------------------//
 /// RoomType All Route 
-Route::controller(RoomTypeController::class)->group(function(){
+Route::controller(RoomTypeController::class)->group(function () {
 
-    Route::get('/room/type/list', 'RoomTypeList')->name('room.type.list'); 
+    Route::get('/room/type/list', 'RoomTypeList')->name('room.type.list');
     Route::get('/add/room/type', 'AddRoomType')->name('add.room.type');
     Route::post('/room/type/store', 'RoomTypeStore')->name('room.type.store');
-
 });
 
 //-------------------------------Room------------------------------------//
 /// Room All Route 
-Route::controller(RoomController::class)->group(function(){
+Route::controller(RoomController::class)->group(function () {
 
     Route::get('/edit/room/{id}', 'EditRoom')->name('edit.room');
     Route::post('/update/room/{id}', 'UpdateRoom')->name('update.room');
@@ -99,33 +119,27 @@ Route::controller(RoomController::class)->group(function(){
     Route::post('/update/roomno/{id}', 'UpdateRoomNumber')->name('update.roomno');
     Route::get('/delete/roomno/{id}', 'DeleteRoomNumber')->name('delete.roomno');
     Route::get('/delete/room/{id}', 'DeleteRoom')->name('delete.room');
-
 });
 
- /// Frontend Room All Route 
- Route::controller(FrontendRoomController::class)->group(function(){
+/// Frontend Room All Route 
+Route::controller(FrontendRoomController::class)->group(function () {
 
     Route::get('/rooms/', 'AllFrontendRoomList')->name('froom.all');
     Route::get('/room/details/{id}', 'RoomDetailsPage');
     Route::get('/bookings/', 'BookingSearch')->name('booking.search');
     Route::get('/search/room/details/{id}', 'SearchRoomDetails')->name('search_room_details');
     Route::get('/check_room_availability/', 'CheckRoomAvailability')->name('check_room_availability');
-
-
 });
 
 // Auth Middleware User must have login for access this route 
-Route::middleware(['auth'])->group(function(){
+Route::middleware(['auth'])->group(function () {
 
     /// CHECKOUT ALL Route 
-Route::controller(BookingController::class)->group(function(){
+    Route::controller(BookingController::class)->group(function () {
 
-   Route::get('/checkout/', 'Checkout')->name('checkout');
-   Route::post('/booking/store/', 'BookingStore')->name('user_booking_store');
-   Route::post('/checkout/store/', 'CheckoutStore')->name('checkout.store');
-   Route::match(['get', 'post'],'/stripe_pay', [BookingController::class, 'stripe_pay'])->name('stripe_pay');
-
-
-});
-
+        Route::get('/checkout/', 'Checkout')->name('checkout');
+        Route::post('/booking/store/', 'BookingStore')->name('user_booking_store');
+        Route::post('/checkout/store/', 'CheckoutStore')->name('checkout.store');
+        Route::match(['get', 'post'], '/stripe_pay', [BookingController::class, 'stripe_pay'])->name('stripe_pay');
+    });
 }); // End Group Auth Middleware

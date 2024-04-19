@@ -15,6 +15,8 @@ use App\Models\Facility;
 use App\Models\RoomBookedDate;
 use App\Models\Booking;
 use Illuminate\Support\Facades\Auth;
+use Stripe;
+
 
 class BookingController extends Controller
 {
@@ -78,7 +80,7 @@ class BookingController extends Controller
 
     public function CheckoutStore(Request $request)
     {
-
+        // dd(env('STRIPE_SECRET'));
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required',
@@ -100,6 +102,37 @@ class BookingController extends Controller
         $total_price = $subtotal - $discount;
         $code = rand(000000000, 999999999);
 
+        // stripe method
+
+        if ($request->payment_method == 'Stripe') {
+            Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+            $s_pay = Stripe\Charge::create ([
+                "amount" => $total_price * 100,
+                "currency" => "MAD",
+                "source" => $request->stripeToken,
+                "description" => "Payment For Booking. Booking No ".$code,
+
+            ]);
+
+            if ($s_pay['status'] == 'succeeded') {
+                $payment_status = 1;
+                $transation_id = $s_pay->id;
+            }else{
+
+                $notification = array(
+                    'message' => 'Sorry Payment Failed, Please try again',
+                    'alert-type' => 'error'
+                ); 
+                return redirect('/')->with($notification);  
+
+            }
+
+         } else{
+            $payment_status = 0;
+            $transation_id = '';
+         } 
+        // end stripe method
+
         $data = new Booking();
         $data->rooms_id = $room->id;
         $data->user_id = Auth::user()->id;
@@ -114,8 +147,8 @@ class BookingController extends Controller
         $data->discount = $discount;
         $data->total_price = $total_price;
         $data->payment_method = $request->payment_method;
-        $data->transation_id = '';
-        $data->payment_status = 0;
+        $data->transation_id = $transation_id;
+        $data->payment_status = $payment_status;
 
         $data->name = $request->name;
         $data->email = $request->email;

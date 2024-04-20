@@ -1,3 +1,6 @@
+@php
+    $setting = App\Models\SiteSetting::find(1);
+@endphp
 <footer class="page-footer">
-			<p class="mb-0">Copyright © 2024. All right reserved.</p>
+			<p class="mb-0">{{ $setting->copyright }}</p>
 </footer>

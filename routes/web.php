@@ -9,6 +9,9 @@ use App\Http\Controllers\Backend\RoomTypeController;
 use App\Http\Controllers\Frontend\BookingController;
 use App\Http\Controllers\Frontend\FrontendRoomController;
 use App\Http\Controllers\Backend\RoomListController;
+use App\Http\Controllers\Backend\TestimonialController;
+use App\Http\Controllers\Backend\ReportController;
+use App\Http\Controllers\Backend\SettingController;
 use Illuminate\Support\Facades\Route;
 
 //-------------------------------------------------------------------//
@@ -51,7 +54,7 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
 Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->middleware(['guest'])->name('admin.login');
 
 
-//----------------------------Admin manage Team---------------------------------------//
+//----------------------------Admin management---------------------------------------//
 
 // Admin Group Middleware 
 Route::middleware(['auth', 'roles:admin'])->group(function () {
@@ -72,6 +75,7 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
 
         Route::get('/booking/list', 'BookingList')->name('booking.list');
         Route::get('/edit_booking/{id}', 'EditBooking')->name('edit_booking');
+        Route::get('/download/invoice/{id}', 'DownloadInvoice')->name('download.invoice');
         // booking Update 
         Route::post('/update/booking/status/{id}', 'UpdateBookingStatus')->name('update.booking.status');
         Route::post('/update/booking/{id}', 'UpdateBooking')->name('update.booking');
@@ -85,6 +89,33 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
     Route::controller(RoomListController::class)->group(function () {
 
         Route::get('/view/room/list', 'ViewRoomList')->name('view.room.list');
+        Route::get('/add/room/list', 'AddRoomList')->name('add.room.list');
+        Route::post('/store/roomlist', 'StoreRoomList')->name('store.roomlist');
+    });
+
+    /// Tesimonial All Route 
+    Route::controller(TestimonialController::class)->group(function () {
+
+        Route::get('/all/testimonial', 'AllTestimonial')->name('all.testimonial');
+        Route::get('/add/testimonial', 'AddTestimonial')->name('add.testimonial');
+        Route::post('/store/testimonial', 'StoreTestimonial')->name('testimonial.store');
+        Route::get('/edit/testimonial/{id}', 'EditTestimonial')->name('edit.testimonial');
+        Route::post('/update/testimonial', 'UpdateTestimonial')->name('testimonial.update');
+        Route::get('/delete/testimonial/{id}', 'DeleteTestimonial')->name('delete.testimonial');
+    });
+
+    /// Booking Report All Route 
+    Route::controller(ReportController::class)->group(function () {
+        Route::get('/booking/report/', 'BookingReport')->name('booking.report');
+        Route::post('/search-by-date', 'SearchByDate')->name('search-by-date');
+    });
+
+    /// Site Setting All Route 
+    Route::controller(SettingController::class)->group(function () {
+
+        Route::get('/site/setting', 'SiteSetting')->name('site.setting');
+        Route::post('/site/update', 'SiteUpdate')->name('site.update');
+
     });
 }); // End Admin Group Middleware 
 
@@ -141,5 +172,9 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/booking/store/', 'BookingStore')->name('user_booking_store');
         Route::post('/checkout/store/', 'CheckoutStore')->name('checkout.store');
         Route::match(['get', 'post'], '/stripe_pay', [BookingController::class, 'stripe_pay'])->name('stripe_pay');
+
+        ////////// User Booking Route
+        Route::get('/user/booking', 'UserBooking')->name('user.booking');
+        Route::get('/user/invoice/{id}', 'UserInvoice')->name('user.invoice');
     });
 }); // End Group Auth Middleware

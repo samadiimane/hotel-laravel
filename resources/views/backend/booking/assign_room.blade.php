@@ -1,5 +1,3 @@
-@extends('admin.admin_dashboard')
-@section('admin')
 <form action="" method="POST">
     @csrf
 
@@ -20,5 +18,3 @@
 
     </table>
 </form>
-
-@endsection

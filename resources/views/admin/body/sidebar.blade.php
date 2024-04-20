@@ -1,10 +1,13 @@
+@php
+    $setting = App\Models\SiteSetting::find(1);
+@endphp
 <div class="sidebar-wrapper" data-simplebar="true">
 	<div class="sidebar-header">
 		<div>
-			<img src="{{asset('backend/assets/images/logo-icon.png')}}" class="logo-icon" alt="logo icon">
+			<img src="{{ asset('frontend/assets/img/logo-icon.png') }}" class="logo-icon" alt="logo icon">
 		</div>
 		<div>
-			<h4 class="logo-text">imon's</h4>
+			<h4 class="logo-text">Etoile d'Or</h4>
 		</div>
 		<div class="toggle-icon ms-auto"><i class='bx bx-arrow-back'></i>
 		</div>
@@ -65,6 +68,7 @@
 				<li>
 					<a href="{{ route('booking.list') }}"><i class='bx bx-radio-circle'></i>Booking List </a>
 				</li>
+				<li> <a href="{{ route('add.room.list') }}"><i class='bx bx-radio-circle'></i>Add Booking </a>
 			</ul>
 		</li>
 		<li>
@@ -79,13 +83,49 @@
 				</li>
 			</ul>
 		</li>
+		<li>
+			<a class="has-arrow" href="javascript:;">
+				<div class="parent-icon"><i class='bx bx-bookmark-heart'></i>
+				</div>
+				<div class="menu-title">Booking Report </div>
+			</a>
+			<ul>
+				<li> <a href="{{ route('booking.report') }}"><i class='bx bx-radio-circle'></i>Booking Report </a>
+				</li>
+			</ul>
+		</li>
 		<li class="menu-label">Others</li>
 		<li>
-			<a href="https://themeforest.net/user/codervent" target="_blank">
-				<div class="parent-icon"><i class="bx bx-support"></i>
+            <a class="has-arrow" href="javascript:;">
+                <div class="parent-icon"><i class='bx bx-bookmark-heart'></i>
+			    </div>
+                <div class="menu-title">Settings</div>
+            </a>
+            <ul>
+                <li> <a href=""><i class='bx bx-radio-circle'></i>SMTP Setting</a>
+                </li>
+
+                <li> <a href="{{ route('site.setting') }}"><i class='bx bx-radio-circle'></i>Site Settings</a>
+                </li>
+
+
+            </ul>
+        </li>
+		<li>
+			<a class="has-arrow" href="javascript:;">
+				<div class="parent-icon"><i class='bx bx-bookmark-heart'></i>
 				</div>
-				<div class="menu-title">Support</div>
+				<div class="menu-title">Tesimonial</div>
 			</a>
+			<ul>
+				<li> <a href="{{ route('all.testimonial') }}"><i class='bx bx-radio-circle'></i>All Testimonial</a>
+				</li>
+
+				<li> <a href="{{ route('add.testimonial') }}"><i class='bx bx-radio-circle'></i>Add Testimonial</a>
+				</li>
+
+
+			</ul>
 		</li>
 	</ul>
 	<!--end navigation-->

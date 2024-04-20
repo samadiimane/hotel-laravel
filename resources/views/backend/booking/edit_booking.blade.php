@@ -102,8 +102,6 @@
             </div>
         </div>
 
-
-
     </div><!--end row-->
 
     <div class="row">
@@ -143,7 +141,7 @@
                                     text-align: right;
                                 }
                             </style>
-                            <table class="table test_table" style="float: right" border="none">
+                            <table class="table test_table" style="float: right; border: none;">
                                 <tr>
                                     <td>Subtotal</td>
                                     <td>${{ $editData->subtotal }}</td>
@@ -160,7 +158,7 @@
                         </div>
                         <div style="clear: both"></div>
                         <div style="margin-top: 40px; margin-bottom:20px;">
-                            <a href="{{ route('assign_room',$editData->id) }}" class="btn btn-primary assign_room"> Assign Room</a>
+                            <a href="#" class="btn btn-primary assign_room"> Assign Room</a>
                         </div>
 
                         @php
@@ -212,6 +210,10 @@
                             </div>
                             <div class="col-md-12" style="margin-top: 20px;">
                                 <button type="submit" class="btn btn-primary">Update</button>
+                                <a href="{{ route('download.invoice',$editData->id) }}" class="btn btn-warning px-3 radius-10">
+                                    <i class="lni lni-download"></i>
+                                     Download Invoice
+                                </a>
                             </div>
 
                         </div>
@@ -219,9 +221,7 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="col-12 col-lg-4">
+    <div class="col-12 col-md-6 col-lg-4">
         <div class="card radius-10 w-100">
             <div class="card-header">
                 <div class="d-flex align-items-center">
@@ -290,6 +290,9 @@
         </div>
         {{-- // end card radius-10 w-100 --}}
     </div>
+    </div>
+
+    
 </div><!--end row-->
 
 </div>

@@ -332,11 +332,11 @@ Top Header
 }
 
 .header-right ul li:hover i {
-  color: #004d24;
+  color: #D4AF37;
 }
 
 .header-right ul li:hover a {
-  color: #004d24;
+  color: #D4AF37;
 }
 
 .language-list {
@@ -5843,7 +5843,7 @@ Coming Soon Area
 }
 
 .coming-soon-area .coming-soon-content ul li:hover {
-  background-color: #1B2132;
+  background-color: #004d24;
 }
 
 .coming-soon-area #validator-newsletter {
@@ -5858,7 +5858,8 @@ Coming Soon Area End
 Footer Area
 ====================================*/
 .footer-bg {
-  background-color: #1B2132;
+  background-color: #004d24;
+  padding: 20px;
 }
 
 .footer-widget {
@@ -5913,11 +5914,11 @@ Footer Area
 }
 
 .footer-widget .footer-list-contact li:hover i {
-  color: #004d24;
+  color: #D4AF37;
 }
 
 .footer-widget .footer-list-contact li:hover a {
-  color: #004d24;
+  color: #D4AF37;
 }
 
 .footer-widget .footer-list {
@@ -5990,13 +5991,12 @@ Footer Area
 }
 
 .copy-right-area {
-  padding: 15px 0;
-  border-top: 1px solid #004d24;
+  padding: 10px 0;
 }
 
 .copy-right-area .copy-right-text p {
   color: #ffffff;
-  margin-bottom: 0;
+  margin: 0;
 }
 
 .copy-right-area .copy-right-text p a {
@@ -6016,8 +6016,8 @@ Footer Area
 }
 
 .copy-right-area .social-icon .social-link li {
-  display: inline-block;
-  margin-right: 5px;
+  text-align: center;
+  margin: 20px;
 }
 
 .copy-right-area .social-icon .social-link li a {
@@ -6039,7 +6039,7 @@ Footer Area
 }
 
 .text-align1 {
-  text-align: left;
+  text-align: center;
 }
 
 .text-align2 {
